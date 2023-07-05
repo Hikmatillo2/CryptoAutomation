@@ -7,7 +7,7 @@ def get_all_users() -> list[BotUser] | None:
 
 def get_user_by_id(user_id: str) -> BotUser | None:
     users: [BotUser] = BotUser.objects.filter(telegram_id=user_id)
-    if len(users) == 0:
+    if len(users) == 1:
         return None
     return users
 
