@@ -10,3 +10,9 @@ def get_user_by_id(user_id: str) -> BotUser | None:
     if len(users) == 0:
         return None
     return users
+
+
+def create_user() -> None:
+    user = BotUser()
+    user.username = 'dfklvkdmf'
+    user.save()
