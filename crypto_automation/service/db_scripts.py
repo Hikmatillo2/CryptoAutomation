@@ -21,12 +21,16 @@ from crypto_automation.models import *
 #     user.username = 'dfklvkdmf'
 #     user.save()
 
-def get_data_of_single_user(id: int) -> dict:
-    user = BotUser.objects.all()[id]
-    data = {'sender_wallet': user.sender_wallet,
-            'sender_seed_phrase': user.phrase,
-            'recipient_wallet': user.recipient_wallet
-            }
-    return data
 
-print(get_data_of_single_user(0))
+def get_all_users():
+    users = BotUser.objects.all()
+
+    if len(users) == 0:
+        return None
+
+    return users
+
+
+user = get_all_users()[0]
+
+print(user.sender_wallet)
