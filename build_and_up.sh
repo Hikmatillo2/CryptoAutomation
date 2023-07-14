@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Building containers..."
-docker-cokpose build
+docker-compose build
 echo "Build successful!"
 docker-compose up -d
 echo "Up successful!"

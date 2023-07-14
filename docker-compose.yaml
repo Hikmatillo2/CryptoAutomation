@@ -8,11 +8,12 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     expose:
-      - "5432" # Publishes 5433 to other containers but NOT to host machine
+      - "5435" # Publishes 5433 to other containers but NOT to host machine
     ports:
-      - 5432:5432
+      - "5435:5435"
     volumes:
-      - elof_database2:/var/lib/postgresql/crm/data5
+      - elof_database45:/var/lib/postgresql/crm/data5
+    command: -p 5435
     networks:
       nw:
         aliases:
@@ -24,19 +25,19 @@ services:
         - DATABASE_URL=database
         - DATABASE_PASSWORD=postgres
         - DATABASE_USER=postgres
-        - DATABASE_PORT=5432
-        - TABLE_NAME=ytb4
-        - DEBUG=False
+        - DATABASE_PORT=5435
+        - TABLE_NAME=ytb
+        - DEBUG=True
         - SERVER=True
-        - BOT_TOKEN=5432373192:AAFX_Sxn2iezTk2O3FS87Ff3ST3sBl292lY
+        - BOT_TOKEN=6382666610:AAESxaexqU6KvjMUxG1CP3q8tg7NqaLSyxc
       ports:
-        - 89:88
-#      depends_on:
-#        - database
+        - 84:88
+      depends_on:
+        - database
       networks:
         nw:
           aliases:
-            - crm
+            - crypto
 
 networks:
   nw:
@@ -45,4 +46,4 @@ networks:
       bridge
 
 volumes:
-  elof_database2:
+  elof_database45:

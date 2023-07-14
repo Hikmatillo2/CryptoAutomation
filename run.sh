@@ -1,8 +1,8 @@
 #!/bin/bash
 
 sleep 10
-psql postgresql://postgres:postgres@database3 -f psql.sql
-
+psql postgresql://postgres:postgres@database -f psql.sql -p 5435
+echo "successesful"
 service nginx start
 # service postgresql start
 python3 manage.py collectstatic --noinput
@@ -17,5 +17,7 @@ python3 manage.py migrate
 sleep 1
 python3 manage.py initadmin
 sleep 1
+sudo service cron start
+crontab -l
 /bin/gunicorn3 wsgi:application -b 127.0.0.1:8000 --env DJANGO_SETTINGS_MODULE=settings --user www-data --group www-data
 # python3 manage.py runserver

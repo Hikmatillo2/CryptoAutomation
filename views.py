@@ -28,7 +28,7 @@ def entrypoint(request: django.http.HttpRequest):
 
                 if transaction is not None:
                     print(f'Successes! transaction hash is {transaction}')
-
+                    send_alert("Successes! transaction hash is {transaction}", user.telegram_id, settings.BOT_TOKEN)
             except Exception as e:
                 send_alert(str(e), user.telegram_id, settings.BOT_TOKEN)
         return HttpResponse('!', 200)
