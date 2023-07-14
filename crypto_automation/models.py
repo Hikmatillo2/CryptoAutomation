@@ -24,5 +24,6 @@ class BotUser(models.Model):
     telegram_id = models.CharField(max_length=30,
                                    null=True,)
 
+
     class Meta:
         verbose_name_plural = 'Users data'
