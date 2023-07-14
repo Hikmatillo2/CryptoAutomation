@@ -24,11 +24,11 @@ SECRET_KEY = 'django-insecure-3qq3th+936qw3j6m=-4ui*5zi+=*w5bnnxrb3-a6#*!a83w0d4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get("DEBUG", '') in ["False", False] else True
 
-ALLOWED_HOSTS = ["botfb.hikmatillo.ru", '0.0.0.0', '192.168.0.28', '127.0.0.1', '31.173.240.248', 'localhost']
+ALLOWED_HOSTS = ["crypto-stage.hikmatillo.ru", '0.0.0.0', '192.168.0.28', '127.0.0.1', '31.173.240.248', 'localhost']
 if not DEBUG:
-    CSRF_TRUSTED_ORIGINS = ['https://botfb.hikmatillo.ru']
+    CSRF_TRUSTED_ORIGINS = ['https://crypto-stage.hikmatillo.ru']
 if os.environ.get("SERVER", '') in ["True", True]:
-    CSRF_TRUSTED_ORIGINS = ['https://botfb.hikmatillo.ru']
+    CSRF_TRUSTED_ORIGINS = ['https://crypto-stage.hikmatillo.ru']
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,4 +134,4 @@ STATIC_ROOT = '/srv/telegram_admin/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", 'erferf')
+BOT_TOKEN = os.environ.get("BOT_TOKEN", '')

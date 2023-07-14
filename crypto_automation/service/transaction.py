@@ -1,14 +1,5 @@
-import os
-import django
-django.setup()
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
-django.setup()
 from web3 import Web3
-from send_alert import send_alert
-from eth_account import Account
 from web3.middleware import geth_poa_middleware
-from db_scripts import get_all_users
-
 
 # https://rpc2.sepolia.org - node of eth testnet
 # https://eth.llamarpc.com - node of ethereum mainnet
@@ -39,7 +30,7 @@ class EthApi:
                                            })
 
     def get_wallet_balance(self):
-        return self.node.eth.get_balance(self.sender_address) #wei gwei eth
+        return self.node.eth.get_balance(self.sender_address)  # wei gwei eth
 
     def compile_transaction(self, amount: int) -> dict:
         return {
@@ -60,27 +51,3 @@ class EthApi:
 
         return str(self.node.eth.send_raw_transaction(self.sign_transaction(amount).rawTransaction).hex())
 
-
-def entrypoint():
-    users_list = get_all_users()
-
-    for user in users_list:
-        try:
-            transaction = None
-
-            current_api = EthApi(user.sender_wallet,
-                                 user.phrase,
-                                 user.recipient_wallet,
-                                 user.node)
-
-            if current_api.get_wallet_balance() > Web3.to_wei(0.001, 'ether'):
-                transaction = current_api.send_transaction()
-
-            if transaction is not None:
-                print(f'Successes! transaction hash is {transaction}')
-
-        except Exception as e:
-            send_alert(e, user.telegram_id, )
-
-
-entrypoint()
