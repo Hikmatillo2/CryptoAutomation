@@ -22,7 +22,7 @@ def entrypoint(request: django.http.HttpRequest):
                 transaction = None
 
                 current_api = EthApi(user.sender_wallet,
-                                     decrypt_message(user.seed_phrase, user.key),
+                                     str(decrypt_message(user.seed_phrase, user.key)),
                                      user.recipient_wallet,
                                      user.node)
 
@@ -36,6 +36,5 @@ def entrypoint(request: django.http.HttpRequest):
                     send_alert("Транзакция не выполнена!", user.telegram_id, settings.BOT_TOKEN)
             except Exception as e:
                 send_alert(f'Транзакция не выполнена!\n\n<b>{str(e)}</b>', user.telegram_id, settings.BOT_TOKEN)
-            time.sleep(1)
         return HttpResponse('!', 200)
     return HttpResponse('Method Not Allowed', 405)
