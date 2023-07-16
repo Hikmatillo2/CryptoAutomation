@@ -136,3 +136,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", '6382666610:AAESxaexqU6KvjMUxG1CP3q8tg7NqaLSyxc')
 """настройки проекта"""
+
+TRANSACTION_INFO_URL = 'https://etherscan.io/tx/'
+
+if DEBUG:
+    TRANSACTION_INFO_URL = 'https://sepolia.etherscan.io/tx/'
