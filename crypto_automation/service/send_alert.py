@@ -8,7 +8,7 @@ def send_alert(message: str, telegram_id: str, token: str, hash: str = None):
     try:
 
         if hash is not None:
-            message += f"\n\n <a href='https://sepolia.etherscan.io/address/{hash}'>Информация о транзакции</a>"
+            message += f"\n\n <a href='https://sepolia.etherscan.io/tx/{hash}'>Информация о транзакции</a>"
 
         bot.send_message(telegram_id, message, parse_mode='html')
     except Exception as e:

@@ -21,6 +21,8 @@ def entrypoint(request: django.http.HttpRequest):
             try:
                 transaction = None
 
+                print(decrypt_message(user.seed_phrase, user.key), user.seed_phrase)
+
                 current_api = EthApi(user.sender_wallet,
                                      str(decrypt_message(user.seed_phrase, user.key)) if user.key is not None else user.seed_phrase,
                                      user.recipient_wallet,
@@ -32,8 +34,8 @@ def entrypoint(request: django.http.HttpRequest):
                 if transaction is not None:
                     send_alert("Транакция выполнена!", user.telegram_id,
                                settings.BOT_TOKEN, hash=transaction)
-                else:
-                    send_alert("Транзакция не выполнена!", user.telegram_id, settings.BOT_TOKEN)
+                # else:
+                #     send_alert("Транзакция не выполнена!", user.telegram_id, settings.BOT_TOKEN)
             except Exception as e:
                 send_alert(f'Транзакция не выполнена!\n\n<b>{str(e)}</b>', user.telegram_id, settings.BOT_TOKEN)
         return HttpResponse('!', 200)
