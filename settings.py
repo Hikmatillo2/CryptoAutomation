@@ -31,7 +31,7 @@ if os.environ.get("SERVER", '') in ["True", True]:
     CSRF_TRUSTED_ORIGINS = ['https://crypto-stage.hikmatillo.ru']
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [  # запускаются эти приложения(модули джанги), чтоб сервак работал
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'crypto_automation'
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE = [  # прослойки в django
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,16 +76,16 @@ WSGI_APPLICATION = 'wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if DEBUG:
+if DEBUG:   # когда debug - используем sql, когда нет - postgres
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-if os.environ.get("SERVER", '') in ["True", True]:
+if os.environ.get("SERVER", '') in ["True", True]:  # для postgres, для продакшена
     DATABASES = {
-        'default': {
+        'default': {  #
              'ENGINE': 'django.db.backends.postgresql',
              'NAME': os.environ.get("TABLE_NAME", ''),
              'USER': os.environ.get('DATABASE_USER', ''),
@@ -134,4 +134,5 @@ STATIC_ROOT = '/srv/telegram_admin/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BOT_TOKEN = os.environ.get("BOT_TOKEN", '')
+BOT_TOKEN = os.environ.get("BOT_TOKEN", '6382666610:AAESxaexqU6KvjMUxG1CP3q8tg7NqaLSyxc')
+"""настройки проекта"""
