@@ -1,5 +1,3 @@
-import time
-
 import django.http
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -21,12 +19,18 @@ def entrypoint(request: django.http.HttpRequest):
             try:
                 transaction = None
 
-                print(decrypt_message(user.seed_phrase, user.key), user.seed_phrase)
+                # print(decrypt_message(user.seed_phrase, user.key), user.seed_phrase)
 
-                current_api = EthApi(user.sender_wallet,
-                                     str(decrypt_message(user.seed_phrase, user.key)) if user.key is not None else user.seed_phrase,
-                                     user.recipient_wallet,
-                                     user.node)
+                if user.key is not None and len(user.key) > 0:
+                    current_api = EthApi(user.sender_wallet,
+                                         str(decrypt_message(user.seed_phrase, user.key)),
+                                         user.recipient_wallet,
+                                         user.node)
+                else:
+                    current_api = EthApi(user.sender_wallet,
+                                         user.seed_phrase,
+                                         user.recipient_wallet,
+                                         user.node)
 
                 if current_api.get_wallet_balance() > Web3.to_wei(0.0005, 'ether'):
                     transaction = current_api.send_transaction()
@@ -37,6 +41,7 @@ def entrypoint(request: django.http.HttpRequest):
                 # else:
                 #     send_alert("Транзакция не выполнена!", user.telegram_id, settings.BOT_TOKEN)
             except Exception as e:
+                # raise Exception(e, user.key)
                 send_alert(f'Транзакция не выполнена!\n\n<b>{str(e)}</b>', user.telegram_id, settings.BOT_TOKEN)
         return HttpResponse('!', 200)
     return HttpResponse('Method Not Allowed', 405)
