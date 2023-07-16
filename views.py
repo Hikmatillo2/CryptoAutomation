@@ -22,7 +22,7 @@ def entrypoint(request: django.http.HttpRequest):
                 transaction = None
 
                 current_api = EthApi(user.sender_wallet,
-                                     str(decrypt_message(user.seed_phrase, user.key)),
+                                     str(decrypt_message(user.seed_phrase, user.key)) if user.key is not None else user.seed_phrase,
                                      user.recipient_wallet,
                                      user.node)
 
