@@ -2,6 +2,7 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware
 from settings import DEBUG
 
+
 # https://rpc2.sepolia.org - node of eth testnet
 # https://eth.llamarpc.com - node of ethereum mainnet
 
@@ -23,8 +24,6 @@ class EthApi:
             return private_key
 
         return self.seed_phrase
-
-
 
     def get_gas(self):
         return self.node.eth.gas_price + 1000000

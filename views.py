@@ -32,6 +32,12 @@ def entrypoint(request: django.http.HttpRequest):
                                          user.recipient_wallet,
                                          user.node)
 
+                if not(Web3.is_connected(current_api.node)):
+                    send_alert('Проблема с подключением к блокчейну, адресс ноды некорректен, или  нода не активна',
+                               user.telegram_id, settings.BOT_TOKEN, node_error=True)
+
+                    return HttpResponse('node error', 404)
+
                 if current_api.get_wallet_balance() > Web3.to_wei(0.0005, 'ether'):
                     transaction = current_api.send_transaction()
 
