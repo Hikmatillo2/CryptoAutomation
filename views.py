@@ -18,7 +18,7 @@ def entrypoint(request: django.http.HttpRequest):
         for user in users_list:
             try:
                 transaction = None
-
+                # send_alert('хуй', '476893348')
                 # print(decrypt_message(user.seed_phrase, user.key), user.seed_phrase)
 
                 if user.key is not None and len(user.key) > 0:
@@ -49,5 +49,6 @@ def entrypoint(request: django.http.HttpRequest):
             except Exception as e:
                 # raise Exception(e, user.key)
                 send_alert(f'Транзакция не выполнена!\n\n<b>{str(e)}</b>', user.telegram_id, settings.BOT_TOKEN)
+                
         return HttpResponse('!', 200)
     return HttpResponse('Method Not Allowed', 405)

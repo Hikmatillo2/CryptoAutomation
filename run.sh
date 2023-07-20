@@ -17,6 +17,7 @@ python3 manage.py migrate
 sleep 1
 python3 manage.py initadmin
 sleep 1
+curl http://127.0.0.1:8000/entrypoint/
 sudo service cron start
 crontab -l
 /bin/gunicorn3 wsgi:application -b 127.0.0.1:8000 --env DJANGO_SETTINGS_MODULE=settings --user www-data --group www-data  # запускаем сервер

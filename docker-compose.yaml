@@ -27,11 +27,12 @@ services:
         - DATABASE_USER=postgres
         - DATABASE_PORT=5435
         - TABLE_NAME=ytb
-        - DEBUG=True
+        - DEBUG=False
+        - DOMAIN=crypto1.site
         - SERVER=True
         - BOT_TOKEN=6382666610:AAESxaexqU6KvjMUxG1CP3q8tg7NqaLSyxc
       ports:
-        - 84:88
+        - 88:88
       depends_on:
         - database
       networks:
